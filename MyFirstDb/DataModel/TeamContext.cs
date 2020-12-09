@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using MyFirstDb.DataModel;
 
 namespace MyFirstDb.DataModel
 {
@@ -10,6 +11,7 @@ namespace MyFirstDb.DataModel
             : base("name=TeamContext")
         {
         }
+        public DbSet<Team> Teams { get; set; }
     }
 
 }
