@@ -45,7 +45,7 @@ namespace MyFirstDb
                     Create(name, country, capacity);
                     Console.WriteLine("OK!");
                     break;
-              /*  case 2:
+                case 2:
                     Read();
                     break;
                 case 3:
@@ -67,7 +67,7 @@ namespace MyFirstDb
                     int del = Convert.ToInt32(Console.ReadLine());
                     Delete(del);
                     Console.WriteLine("Delete!");
-                    break; */
+                    break; 
                 case 5:
                     Console.WriteLine("Bye!");
                     Console.ReadLine();
@@ -84,6 +84,37 @@ namespace MyFirstDb
             {
                 Team team = new Team { Name = name, Country = country, Capacity = capacity };
                 db.Teams.Add(team);
+                db.SaveChanges();
+            }
+        }
+        public static void Read()
+        {
+            using (TeamContext db = new TeamContext())
+            {
+                var teams = db.Teams;
+                foreach (Team t in teams)
+                {
+                    Console.WriteLine("{0}. {1,10}\t{2,10}\t{3}\t", t.Id, t.Name, t.Country, t.Capacity);
+                }
+            }
+        }
+        public static void Update(int upd, string name, string country, int capacity)
+        {
+            using (TeamContext db = new TeamContext())
+            {
+                var teams = db.Teams.FirstOrDefault(x => x.Id == upd);
+                teams.Name = name;
+                teams.Country = country;
+                teams.Capacity = capacity;
+                db.SaveChanges();
+            }
+        }
+        public static void Delete(int del)
+        {
+            using (TeamContext db = new TeamContext())
+            {
+                var teams = db.Teams.FirstOrDefault(x => x.Id == del);
+                db.Teams.Remove(teams);
                 db.SaveChanges();
             }
         }
